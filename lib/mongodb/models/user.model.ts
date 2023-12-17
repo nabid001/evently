@@ -8,7 +8,6 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-
     required: true,
     unique: true,
   },
@@ -18,15 +17,12 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   photo: {
     type: String,
-    required: true,
   },
 });
 

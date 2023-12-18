@@ -12,7 +12,7 @@ const Header = () => {
       <div className="wrapper flex justify-between items-center">
         <Link href="/" className="w-36">
           <Image
-            src="assets/images/logo.svg"
+            src="/assets/images/logo.svg"
             alt="evently logo"
             width={128}
             height={38}

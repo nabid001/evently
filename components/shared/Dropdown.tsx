@@ -7,8 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ICategory } from "@/lib/mongodb/models/category.model";
-import { startTransition, useState } from "react";
+import Category, { ICategory } from "@/lib/mongodb/models/category.model";
+import { startTransition, useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,6 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "../ui/input";
+import { createCategory, fetchCategory } from "@/lib/actions/category.actions";
 
 type DropdownProps = {
   value: string;
@@ -31,10 +32,26 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [newCategory, setNewCategory] = useState("");
 
-  const handleAddCategory = () => {};
+  const handleAddCategory = () => {
+    createCategory({
+      categoryName: newCategory.trim(),
+    }).then((category) => {
+      setCategories((prev) => [...prev, category]);
+    });
+  };
+
+  useEffect(() => {
+    const getAllCategory = async () => {
+      const res = await fetchCategory();
+
+      res && setCategories(res as ICategory[]);
+    };
+
+    getAllCategory();
+  }, []);
 
   return (
-    <Select onValueChange={onChangeHandler} defaultValues={value}>
+    <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
@@ -52,7 +69,7 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
 
         <AlertDialog>
           <AlertDialogTrigger className="flex w-full rounded-sm p-medium-14 py-3 pl-8 bg-primary-50 hover:bg-primary-50 focus:text-primary-500">
-            New Category
+            Add New Category
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white">
             <AlertDialogHeader>
@@ -62,7 +79,6 @@ const Dropdown = ({ onChangeHandler, value }: DropdownProps) => {
                   type="text"
                   placeholder="Category name"
                   className="input-field mt-3"
-                  //   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
                 />
               </AlertDialogDescription>

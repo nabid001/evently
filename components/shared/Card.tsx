@@ -30,7 +30,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
 
       {isEventCreator && !hidePrice && (
         <div className="absolute top-2 right-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-          <Link href={`events/${event._id}/update`}>
+          <Link href={`/events/${event._id}/update`}>
             <Image
               src="/assets/icons/edit.svg"
               alt="edit"
@@ -42,10 +42,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
         </div>
       )}
 
-      <Link
-        href={`/events/${event._id}`}
-        className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4"
-      >
+      <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         {!hidePrice && (
           <>
             <div className="flex gap-2">
@@ -60,10 +57,11 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
             <p className="p-medium-16 p-medium-18 text-grey-500">
               {formatDateTime(event.startDateTime).dateTime}
             </p>
-
-            <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
-              {event.title}
-            </p>
+            <Link href={`/events/${event._id}`}>
+              <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
+                {event.title}
+              </p>
+            </Link>
 
             <div className="flex-between w-full">
               <p className="p-medium-14 md:p-medium-16 text-grey-600">
@@ -87,7 +85,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
             </div>
           </>
         )}
-      </Link>
+      </div>
     </div>
   );
 };

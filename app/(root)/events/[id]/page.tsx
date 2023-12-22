@@ -6,7 +6,6 @@ import {
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
-import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import React from "react";
 
@@ -19,7 +18,7 @@ const EventDetails = async ({
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
     eventId: event._id,
-    page: searchParams.page as string,
+    page: (searchParams.page as string) || 1,
   });
 
   return (
@@ -73,8 +72,7 @@ const EventDetails = async ({
                     {formatDateTime(event.startDateTime).timeOnly} -{" "}
                   </p>
                   <p>
-                    {" "}
-                    {formatDateTime(event.endDateTime).dateOnly} -{" "}
+                    {formatDateTime(event.endDateTime).dateOnly}
                     {formatDateTime(event.endDateTime).timeOnly}
                   </p>
                 </div>
@@ -112,7 +110,7 @@ const EventDetails = async ({
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={searchParams.page as string}
+          page={(searchParams.page as string) || 1}
           totalPages={relatedEvents?.totalPages}
         />
       </section>

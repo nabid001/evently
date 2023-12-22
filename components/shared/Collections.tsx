@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
-import { IEvent } from "@/lib/mongodb/models/event.model";
 import Pagination from "./Pagination";
+import { IEvent } from "@/lib/mongodb/models/event.model";
 
 type CollectionProps = {
   data: IEvent[];

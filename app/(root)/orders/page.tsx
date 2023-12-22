@@ -1,3 +1,4 @@
+import Search from "@/components/shared/Search";
 import { getOrdersByEvent } from "@/lib/actions/order.actions";
 import { IOrderItem } from "@/lib/mongodb/models/order.model";
 import { formatDateTime, formatPrice } from "@/lib/utils";
@@ -8,7 +9,6 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
   const searchText = (searchParams?.query as string) || "";
 
   const orders = await getOrdersByEvent({ eventId, searchString: searchText });
-  console.log(orders);
 
   return (
     <>
@@ -17,7 +17,7 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="wrapper mt-8">
-        {/* <Search placeholder="Search buyer name..." /> */}
+        <Search placeholder="Search buyer name..." />
       </section>
 
       <section className="wrapper overflow-x-auto">

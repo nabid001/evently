@@ -18,7 +18,7 @@ const EventDetails = async ({
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
     eventId: event._id,
-    page: (searchParams.page as string) || 1,
+    page: searchParams.page as string,
   });
 
   return (
@@ -110,7 +110,7 @@ const EventDetails = async ({
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={(searchParams.page as string) || 1}
+          page={searchParams.page as string}
           totalPages={relatedEvents?.totalPages}
         />
       </section>
